@@ -1,5 +1,5 @@
 [package]
-name = "random-planar-graphs"
+name = "biomass-breakout"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 glium = "0.30.2"
+glium_text = "0.14.0"
