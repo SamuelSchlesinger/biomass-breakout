@@ -26,21 +26,21 @@ be under (perhaps partial) user control are:
 1. The map for any particular engagement
 2. The opponents you choose to face
 3. The fitness function for selection
-  1. Maximize/minimize
-    1. Movement
-    2. Food intake
-    3. Amount of time in certain environment
-  1. Combine N fitness functions by taking a weighted sum
-  2. Boolean survival
-  3. Predation statistics
-    1. Maximimize/Minimize Quantity
-    2. Boolean "did I predate?"
+    1. Maximize/minimize
+        1. Movement
+        2. Food intake
+        3. Amount of time in certain environment
+    2. Combine N fitness functions by taking a weighted sum
+    3. Boolean survival
+    4. Predation statistics
+        1. Maximimize/Minimize Quantity
+        2. Boolean "did I predate?"
 4. The breeding mechanism
-  1. Two parents
-  2. One parent
-  3. "Population Level Mixing"
-  4. Maybe k-mixing is a generalization of two parents and population level mixing
-  5. Totally random genes
+    1. Two parents
+    2. One parent
+    3. "Population Level Mixing"
+    4. Maybe k-mixing is a generalization of two parents and population level mixing
+    5. Totally random genes
 
 The map will expand as the game continues, releasing more nutrients as it does,
 but less than proportionally to the size increase such that scarcity increases
