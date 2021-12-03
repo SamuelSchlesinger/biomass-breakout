@@ -1,3 +1,5 @@
+mod simulation;
+
 use crate::game::Game;
 use glium::glutin;
 use glutin::dpi::{LogicalPosition, LogicalSize};
@@ -45,21 +47,21 @@ impl Game for BiomassBreakout {
         target.finish().expect("finish no work?");
     }
 
-    fn press_key(&mut self, virtual_key: glium::glutin::event::VirtualKeyCode) {
+    fn press_key(&mut self, _virtual_key: glium::glutin::event::VirtualKeyCode) {
         self.flip_state();
     }
 
-    fn release_key(&mut self, virtual_key: glium::glutin::event::VirtualKeyCode) {}
+    fn release_key(&mut self, _virtual_key: glium::glutin::event::VirtualKeyCode) {}
 
-    fn set_focus(&mut self, focus: bool) {}
+    fn set_focus(&mut self, _focus: bool) {}
 
-    fn move_cursor(&mut self, new_position: LogicalPosition<f64>) {}
+    fn move_cursor(&mut self, _new_position: LogicalPosition<f64>) {}
 
-    fn press_mouse(&mut self, button: glutin::event::MouseButton) {}
+    fn press_mouse(&mut self, _button: glutin::event::MouseButton) {}
 
-    fn release_mouse(&mut self, button: glutin::event::MouseButton) {}
+    fn release_mouse(&mut self, _button: glutin::event::MouseButton) {}
 
-    fn change_modifiers(&mut self, modifiers: glutin::event::ModifiersState) {}
+    fn change_modifiers(&mut self, _modifiers: glutin::event::ModifiersState) {}
 
-    fn resize(&mut self, new_size: LogicalSize<f64>) {}
+    fn resize(&mut self, _new_size: LogicalSize<f64>) {}
 }
