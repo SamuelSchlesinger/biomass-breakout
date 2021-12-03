@@ -5,9 +5,11 @@ impl GameContext {
         GameContext {}
     }
 
-    pub fn render(&self, target: &mut glium::Frame) {
+    pub fn render(&self, display: &mut glium::Display) {
         use glium::Surface;
-        target.clear_color(1.0, 0.5, 0.5, 0.5);
+        let mut target = display.draw();
+        target.clear_color(0.0, 0.0, 0.0, 0.0);
+        target.finish().expect("finish no work?");
     }
 
     pub fn press(&mut self, virtual_key: glium::glutin::event::VirtualKeyCode) {}

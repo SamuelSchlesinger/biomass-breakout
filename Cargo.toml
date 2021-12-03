@@ -7,4 +7,3 @@ edition = "2021"
 
 [dependencies]
 glium = "0.30.2"
-glium_text = "0.14.0"

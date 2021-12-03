@@ -33,9 +33,7 @@ fn main() {
         use glium::glutin;
 
         // Rendering
-        let mut target = display.draw();
-        game_context.render(&mut target);
-        target.finish().expect("finish no work?");
+        game_context.render(&mut display);
 
         // By default, just wait until the next frame to render
         let next_frame_time =

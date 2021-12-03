@@ -33,7 +33,7 @@ be passive and strategic, not active and tactical. The things which will be unde
   d. Predation statistics
     1. Maximimize/Minimize Quantity
     2. Boolean "did I predate?"
-4. The selection mechanism
+4. The breeding mechanism
   a. Two parents
   b. One parent
   c. "Population Level Mixing"
