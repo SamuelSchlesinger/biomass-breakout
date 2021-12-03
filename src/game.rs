@@ -1,5 +1,5 @@
 use glium::glutin;
-use glutin::dpi::LogicalPosition;
+use glutin::dpi::{LogicalPosition, LogicalSize};
 
 struct GLContext {
     event_loop: glium::glutin::event_loop::EventLoop<()>,
@@ -42,6 +42,10 @@ pub trait Game {
     fn release_mouse(&mut self, button: glutin::event::MouseButton);
 
     fn change_modifiers(&mut self, modifiers: glutin::event::ModifiersState);
+
+    fn resize(&mut self, new_size: LogicalSize<f64>);
+
+    fn release_key(&mut self, virtual_key: glium::glutin::event::VirtualKeyCode);
 }
 
 // Thought: Go off into a thread and run
@@ -86,11 +90,18 @@ where
                 }
                 glutin::event::WindowEvent::KeyboardInput { input, .. } => {
                     if let Some(virtual_key) = input.virtual_keycode {
+                        match input.state {
+                            glutin::event::ElementState::Pressed => game.press_key(virtual_key),
+                            glutin::event::ElementState::Released => game.release_key(virtual_key),
+                        }
                         game.press_key(virtual_key);
                     }
                 }
                 glutin::event::WindowEvent::Focused(b) => {
                     game.set_focus(b);
+                }
+                glutin::event::WindowEvent::Resized(new_physical_size) => {
+                    game.resize(LogicalSize::from_physical(new_physical_size, scale_factor));
                 }
                 glutin::event::WindowEvent::CursorMoved {
                     position: physical_position,
