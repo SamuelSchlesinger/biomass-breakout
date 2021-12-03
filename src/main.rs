@@ -2,8 +2,8 @@ mod biomass_breakout;
 mod game;
 
 use biomass_breakout::BiomassBreakout;
-use game::run;
+use game::Game;
 
 fn main() {
-    run(|| BiomassBreakout::default());
+    <BiomassBreakout as Game>::run(|| BiomassBreakout::default());
 }
