@@ -40,6 +40,7 @@ pub enum Obituary {
     Suicide,
 }
 
+#[derive(Debug, PartialOrd, PartialEq)]
 pub struct PopulationFitness {
     /// The result of an evaluation of the population's fitness
     fitness: BTreeMap<CreatureId, f64>,
@@ -50,4 +51,28 @@ pub trait SelectionStrategy {
     /// Modify the population with the given fitness criterion, according to
     /// the strategy.
     fn select(self, population: &mut Population, fitness: PopulationFitness);
+}
+
+#[derive(Debug, PartialOrd, PartialEq)]
+pub struct Position {
+    x: f64,
+    y: f64,
+}
+
+#[derive(Debug, PartialOrd, PartialEq)]
+pub struct Direction {
+    angle: f64,
+}
+
+#[derive(Debug, PartialOrd, PartialEq)]
+pub struct ActiveCreature {
+    id: CreatureId,
+    health: u64,
+    position: Position,
+    heading: Direction,
+    metrics: BTreeMap<String, u64>,
+}
+
+trait FitnessFunction {
+    fn fitness(self, active_creature: &ActiveCreature) -> f64;
 }
