@@ -47,11 +47,11 @@ impl Game for BiomassBreakout {
         target.finish().expect("finish no work?");
     }
 
-    fn press_key(&mut self, _virtual_key: glium::glutin::event::VirtualKeyCode) {
+    fn press_key(&mut self, _virtual_key: glutin::event::VirtualKeyCode) {
         self.flip_state();
     }
 
-    fn release_key(&mut self, _virtual_key: glium::glutin::event::VirtualKeyCode) {}
+    fn release_key(&mut self, _virtual_key: glutin::event::VirtualKeyCode) {}
 
     fn set_focus(&mut self, _focus: bool) {}
 

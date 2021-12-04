@@ -57,11 +57,9 @@ pub trait Game {
                 } => match window_event {
                     glutin::event::WindowEvent::CloseRequested => {
                         *control_flow = glutin::event_loop::ControlFlow::Exit;
-                        return;
                     }
                     glutin::event::WindowEvent::Destroyed => {
                         *control_flow = glutin::event_loop::ControlFlow::Exit;
-                        return;
                     }
                     glutin::event::WindowEvent::KeyboardInput { input, .. } => {
                         if let Some(virtual_key) = input.virtual_keycode {

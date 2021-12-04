@@ -33,11 +33,11 @@ pub struct Genome {
 #[derive(Debug, PartialOrd, Ord, PartialEq, Eq)]
 pub enum Obituary {
     /// Death by lack of food
-    Starvation,
+    _Starvation,
     /// Death by murder
-    KilledBy(CreatureId),
+    _KilledBy(CreatureId),
     /// Death by self
-    Suicide,
+    _Suicide,
 }
 
 #[derive(Debug, PartialOrd, PartialEq)]
