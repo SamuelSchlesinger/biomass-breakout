@@ -5,5 +5,5 @@ use biomass_breakout::BiomassBreakout;
 use game::Game;
 
 fn main() {
-    <BiomassBreakout as Game>::run(|| BiomassBreakout::default());
+    <BiomassBreakout as Game>::run(BiomassBreakout::default);
 }
