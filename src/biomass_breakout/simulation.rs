@@ -50,6 +50,9 @@ pub struct PopulationFitness {
 pub trait SelectionStrategy {
     /// Modify the population with the given fitness criterion, according to
     /// the strategy.
+    ///
+    /// TODO(sam) We probably want to parameterize this on a source of
+    /// randomness in order to not be stuck with the system generator?
     fn select(self, population: &mut Population, fitness: PopulationFitness);
 }
 
