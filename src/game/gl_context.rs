@@ -1,15 +1,19 @@
+use crate::game::Game;
 use glium::glutin;
 
-pub struct GLContext {
-    pub event_loop: glutin::event_loop::EventLoop<()>,
+pub struct GLContext<Msg>
+where
+    Msg: 'static,
+{
+    pub event_loop: glutin::event_loop::EventLoop<Msg>,
     pub display: glium::Display,
     pub starting_scale_factor: f64,
 }
 
-impl Default for GLContext {
+impl<G> Default for GLContext<G> {
     /// Set up OpenGL in a sane testing configuration
     fn default() -> Self {
-        let event_loop = glutin::event_loop::EventLoop::new();
+        let event_loop = glutin::event_loop::EventLoop::with_user_event();
         let wb = glutin::window::WindowBuilder::new()
             .with_inner_size(glutin::dpi::LogicalSize::new(500, 500))
             .with_title("Hello world!");

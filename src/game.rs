@@ -1,4 +1,5 @@
-mod gl_context;
+pub mod font;
+pub mod gl_context;
 
 use gl_context::GLContext;
 use glium::glutin;
@@ -23,23 +24,21 @@ pub trait Game {
 
     fn release_key(&mut self, virtual_key: glium::glutin::event::VirtualKeyCode);
 
-    // Thought: Go off into a thread and run
-    // create_game. Until its done, display
-    // some generic loading screen. That way,
-    // loading screens are baked into the
-    // "game engine".
-    fn run<G: Game, F>(create_game: F) -> !
+    fn run_with<C>(gl_context: GLContext<()>, create_game: C) -> !
     where
-        F: FnOnce() -> G,
-        G: 'static,
+        Self: Sized + 'static,
+        C: FnOnce() -> Self,
     {
         let GLContext {
             event_loop,
             mut display,
             starting_scale_factor,
-        } = GLContext::default();
+        } = gl_context;
         let mut game = create_game();
         let mut scale_factor = starting_scale_factor;
+
+        let event_loop_proxy = event_loop.create_proxy();
+
         event_loop.run(move |event, _event_loop_window_target, control_flow| {
             // Rendering
             game.render(&mut display);
