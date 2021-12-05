@@ -8,7 +8,7 @@ use game::Game;
 fn main() {
     let gl_context = GLContext::default();
     let text_system = game::font::TextSystem::new(&gl_context.display);
-    let font_data = include_bytes!("/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf");
+    let font_data = include_bytes!("../assets/font.ttf");
     let font_texture = game::font::FontTexture::new(
         &gl_context.display,
         &font_data[..],
