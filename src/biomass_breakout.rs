@@ -3,6 +3,7 @@ pub mod simulation;
 use crate::game;
 use crate::game::Game;
 use glium::glutin;
+use glium::implement_vertex;
 use glutin::dpi::{LogicalPosition, LogicalSize};
 
 /// Holds the game state which will be needed for rendering, as well as any handles
@@ -21,6 +22,17 @@ pub struct BiomassBreakout {
 pub enum State {
     Menu,
 }
+
+#[derive(Copy, Clone)]
+struct MenuVertex {
+    position: [f32; 2],
+}
+
+fn menu_vertex(x: f32, y: f32) -> MenuVertex {
+    MenuVertex { position: [x, y] }
+}
+
+implement_vertex!(MenuVertex, position);
 
 #[derive(Debug)]
 pub enum Message {}
@@ -45,7 +57,7 @@ impl Game for BiomassBreakout {
                 let (_w, _h) = display.get_framebuffer_dimensions();
                 #[rustfmt::skip]
                 let matrix: [[f32; 4]; 4] = (cgmath::Matrix4::from_translation(
-                    cgmath::Vector3 { x: -0.50, y: 1.0 - 0.5 * text_height, z: 0.0f32 }
+                    cgmath::Vector3 { x: -0.5, y: 1.0 - 0.5 * text_height, z: 0.0f32 }
                 ) * cgmath::Matrix4::from_scale(1.0 / text_width))
                 .into();
                 game::font::draw(
@@ -56,6 +68,50 @@ impl Game for BiomassBreakout {
                     (1.0, 1.0, 0.0, 1.0),
                 )
                 .unwrap();
+                let shape = vec![
+                    menu_vertex(-0.8, 1.0 - 0.5 * text_height - 0.1),
+                    menu_vertex(0.8, 1.0 - 0.5 * text_height - 0.1),
+                    menu_vertex(0.8, -1.0 + 0.5 * text_height - 0.1),
+                    menu_vertex(-0.8, -1.0 + 0.5 * text_height - 0.1),
+                    menu_vertex(-0.8, 1.0 - 0.5 * text_height - 0.1),
+                ];
+                let logo_box_vertex_buffer = glium::VertexBuffer::new(display, &shape).unwrap();
+                let indices = glium::index::NoIndices(glium::index::PrimitiveType::TriangleStrip);
+                let logo_box_vertex_shader_src = r#"
+                    #version 140
+
+                    in vec2 position;
+
+                    void main() {
+                        gl_Position = vec4(position, 0.0, 1.0);
+                    }
+                "#;
+
+                let logo_box_fragment_shader_src = r#"
+                    #version 140
+
+                    out vec4 color;
+
+                    void main() {
+                        color = vec4(0.4, 0.8, 0.5, 1.0);
+                    }
+                "#;
+                let logo_box_program = glium::Program::from_source(
+                    display,
+                    logo_box_vertex_shader_src,
+                    logo_box_fragment_shader_src,
+                    None,
+                )
+                .unwrap();
+                target
+                    .draw(
+                        &logo_box_vertex_buffer,
+                        &indices,
+                        &logo_box_program,
+                        &glium::uniforms::EmptyUniforms,
+                        &Default::default(),
+                    )
+                    .unwrap();
             }
         }
         target.finish().expect("finish no work?");

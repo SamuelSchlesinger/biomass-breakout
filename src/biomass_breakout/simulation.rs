@@ -1,3 +1,10 @@
+/*!
+A module which only need concern itself with the internal state of a
+particular simulation, sending updates relevant to rendering about it
+to the game engine, which will keep a data structure read optimized for
+rendering.
+*/
+
 use crate::biomass_breakout;
 use crate::game;
 use biomass_breakout::BiomassBreakout;
