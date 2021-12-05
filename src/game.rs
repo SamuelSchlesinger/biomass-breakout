@@ -6,7 +6,11 @@ use glium::glutin;
 use glutin::dpi::{LogicalPosition, LogicalSize};
 
 pub trait Game {
+    type Message;
+
     fn render(&self, display: &mut glium::Display);
+
+    fn receive(&mut self, message: Self::Message);
 
     fn press_key(&mut self, virtual_key: glium::glutin::event::VirtualKeyCode);
 
@@ -24,10 +28,11 @@ pub trait Game {
 
     fn release_key(&mut self, virtual_key: glium::glutin::event::VirtualKeyCode);
 
-    fn run_with<C>(gl_context: GLContext<()>, create_game: C) -> !
+    fn run_with<C>(gl_context: GLContext<Self::Message>, create_game: C) -> !
     where
         Self: Sized + 'static,
         C: FnOnce() -> Self,
+        Self::Message: std::fmt::Debug, // This truly is a debug thing, should not be here for release
     {
         let GLContext {
             event_loop,
@@ -36,8 +41,6 @@ pub trait Game {
         } = gl_context;
         let mut game = create_game();
         let mut scale_factor = starting_scale_factor;
-
-        let event_loop_proxy = event_loop.create_proxy();
 
         event_loop.run(move |event, _event_loop_window_target, control_flow| {
             // Rendering
@@ -104,10 +107,12 @@ pub trait Game {
                         scale_factor = new_scale_factor;
                     }
                     other_window_event => {
+                        // For debugging, delete before release
                         println!("Other window event: {:?}", other_window_event);
                     }
                 },
                 other_glutin_event => {
+                    // For debugging, delete before release
                     println!("Other glutin event: {:?}", other_glutin_event);
                 }
             }

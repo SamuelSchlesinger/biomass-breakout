@@ -1,4 +1,14 @@
+use crate::biomass_breakout;
+use crate::game;
+use biomass_breakout::BiomassBreakout;
+use game::Game;
 use std::collections::{BTreeMap, BTreeSet};
+
+pub fn begin<F>(_send_event: F)
+where
+    F: FnMut(<BiomassBreakout as Game>::Message),
+{
+}
 
 #[derive(Debug, PartialOrd, Ord, PartialEq, Eq)]
 pub struct Population {

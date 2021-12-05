@@ -1,6 +1,5 @@
 use glium::{implement_vertex, program, uniform};
 use std::borrow::Cow;
-use std::collections::BTreeMap;
 use std::collections::HashMap;
 use std::default::Default;
 use std::io::Read;
@@ -23,7 +22,7 @@ pub struct FontTexture {
 #[derive(Debug)]
 pub enum Error {
     /// A glyph for this character is not present in font.
-    NoGlyph(char),
+    _NoGlyph(char),
     /// An Error that comes directly from Rusttype.
     RusttypeError,
 }
@@ -442,7 +441,7 @@ where
         index_buffer,
         &system.program,
         &uniforms,
-        &parameters,
+        parameters,
     )
 }
 
@@ -473,7 +472,7 @@ where
     // everything as long as the texture is at least as wide as the widest
     // character we just try to estimate a width so that width ~= height
     let texture_width = get_nearest_po2(std::cmp::max(
-        font_size * 2 as u32,
+        (font_size * 2) as u32,
         ((((size_estimation as u32) * font_size * font_size) as f32).sqrt()) as u32,
     ));
 
