@@ -44,7 +44,7 @@ impl Game for BiomassBreakout {
         use glium::Surface;
 
         let mut target = display.draw();
-        target.clear_color(0.35, 0.53, 0.78, 0.0);
+        target.clear_color(0.0, 0.0, 0.0, 0.0);
         match self.state {
             State::Menu => {
                 let text = game::font::TextDisplay::new(
@@ -65,15 +65,15 @@ impl Game for BiomassBreakout {
                     &self.text_system,
                     &mut target,
                     matrix,
-                    (1.0, 1.0, 0.0, 1.0),
+                    (1.0, 0.0, 0.0, 1.0),
                 )
                 .unwrap();
                 let shape = vec![
-                    menu_vertex(-0.8, 1.0 - 0.5 * text_height - 0.1),
-                    menu_vertex(0.8, 1.0 - 0.5 * text_height - 0.1),
-                    menu_vertex(0.8, -1.0 + 0.5 * text_height - 0.1),
-                    menu_vertex(-0.8, -1.0 + 0.5 * text_height - 0.1),
-                    menu_vertex(-0.8, 1.0 - 0.5 * text_height - 0.1),
+                    menu_vertex(-0.9, 1.0 - 0.5 * text_height - 0.1),
+                    menu_vertex(0.9, 1.0 - 0.5 * text_height - 0.1),
+                    menu_vertex(0.9, -1.0 + 0.5 * text_height - 0.3),
+                    menu_vertex(-0.9, -1.0 + 0.5 * text_height - 0.3),
+                    menu_vertex(-0.9, 1.0 - 0.5 * text_height - 0.1),
                 ];
                 let logo_box_vertex_buffer = glium::VertexBuffer::new(display, &shape).unwrap();
                 let indices = glium::index::NoIndices(glium::index::PrimitiveType::TriangleStrip);
@@ -93,7 +93,7 @@ impl Game for BiomassBreakout {
                     out vec4 color;
 
                     void main() {
-                        color = vec4(0.4, 0.8, 0.5, 1.0);
+                        color = vec4(1.0, 1.0, 1.0, 1.0);
                     }
                 "#;
                 let logo_box_program = glium::Program::from_source(
