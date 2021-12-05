@@ -1,4 +1,3 @@
-use crate::game::Game;
 use glium::glutin;
 
 pub struct GLContext<Msg>
